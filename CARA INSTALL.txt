@@ -1,0 +1,17 @@
+Cara install project :
+1. Copy project ini ke komputer yang akan digunakan
+2. Nyalakan Xampp atau lainnya
+3. Buka database dan import 'simpentra2022.sql'
+4. Project siap digunakan dan dikembangkan! ^^
+
+Catatan Login Admin :
+email : admsimpentra@gmail.com
+pass : default
+
+jika menambahkan user tanpa password, maka password defaultnya adalah 'default'
+
+***!! JANGAN MENGUBAH ID ROLE KARENA AKAN BERDAMPAK PADA SISTEM !!***
+1 : Super Admin
+3 : Operator Seksi
+4 : Pengawas
+5 : Mitra
