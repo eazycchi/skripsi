@@ -1,3 +1,12 @@
+<style>
+    .error {
+        color: red;
+        font-size: 1rem;
+        position: relative;
+        line-height: 1;
+        width: 100%;
+    }
+</style>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -27,15 +36,18 @@
                     <tbody style="background-color: #ffffff; color: #00264d;">
                         <?php $i = 1; ?>
                         <?php foreach ($survei as $s) : ?>
+                            <?php $now = (time()); ?>
                             <tr align=center>
                                 <th scope="row"><?= $i; ?></th>
-                                <td><?= $s['nama']; ?></td>
+                                <?php if ($now > $s['start']) : ?>
+                                    <td><a href="<?= base_url('kegiatan/detailKegiatan/') . $s['id'] ?>"><?= $s['nama']; ?></a></td>
+                                <?php else :  ?>
+                                    <td><?= $s['nama']; ?></td>
+                                <?php endif;  ?>
                                 <td><?= date('d F Y', $s['start']); ?></td>
                                 <td><?= date('d F Y', $s['finish']); ?></td>
                                 <td><?= $s['k_pengawas']; ?></td>
                                 <td><?= $s['k_pencacah']; ?></td>
-
-                                <?php $now = (time()); ?>
                                 <td>
                                     <?php if ($now > $s['start']) : ?>
                                         <a class="badge badge-secondary">tambah pengawas</a>
@@ -85,8 +97,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('kegiatan/survei') ?>" method="post">
-                <div class="modal-body">
+            <div class="modal-body">
+                <form action="<?= base_url('kegiatan/survei') ?>" method="post" id="modalSurveiSensus">
                     <div class="form-group">
                         <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama">
                     </div>
@@ -97,10 +109,10 @@
                         <input type="text" class="form-control datepicker" id="finish" name="finish" placeholder="Tanggal Selesai">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="k_pengawas" name="k_pengawas" placeholder="Jumlah Pengawas">
+                        <input type="number" class="form-control" id="k_pengawas" name="k_pengawas" placeholder="Jumlah Pengawas">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="k_pencacah" name="k_pencacah" placeholder="Jumlah Pencacah">
+                        <input type="number" class="form-control" id="k_pencacah" name="k_pencacah" placeholder="Jumlah Pencacah">
                     </div>
                     <div class="form-group">
                         <select name="ob" id="ob" class="form-control">
@@ -109,12 +121,15 @@
                             <option value="0">Selain OB</option>
                         </select>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="honor" name="honor" placeholder="Nilai Honor">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

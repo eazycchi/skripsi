@@ -29,14 +29,14 @@
                 <div class="form-group row">
                     <label for="k_pengawas" class="col-sm-3 col-form-label">Kuota Pengawas</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="k_pengawas" name="k_pengawas" value="<?= $survei['k_pengawas']; ?>">
+                        <input type="number" class="form-control" id="k_pengawas" name="k_pengawas" value="<?= $survei['k_pengawas']; ?>">
                         <?= form_error('k_pengawas', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="k_pencacah" class="col-sm-3 col-form-label">Kuota Pencacah</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="k_pencacah" name="k_pencacah" value="<?= $survei['k_pencacah']; ?>">
+                        <input type="number" class="form-control" id="k_pencacah" name="k_pencacah" value="<?= $survei['k_pencacah']; ?>">
                         <?= form_error('k_pencacah', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
@@ -55,7 +55,13 @@
                         <?= form_error('ob', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
-
+                <div class="form-group row">
+                    <label for="honor" class="col-sm-3 col-form-label">Nilai Honor</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="honor" name="honor" value="<?= $survei['honor']; ?>">
+                        <?= form_error('honor', '<small class="text-danger pl-3">', '</small>'); ?>
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <div class="col-sm-3">

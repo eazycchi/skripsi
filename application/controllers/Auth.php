@@ -12,7 +12,7 @@ class Auth extends CI_Controller
     // public function bikinAkun()
     // {
     //     $data = [
-    //         'email' => 'admin@gmail.com',
+    //         'email' => 'admsimpentra@gmail.com',
     //         'role_id' => '1',
     //         'date_created' => date("Y-m-d", time()),
     //     ];

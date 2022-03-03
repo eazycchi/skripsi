@@ -14,6 +14,7 @@
                     </div>
                     <div class="col-lg-4" align=center>
                         <h3>Pengawas : <?= $pengawas['nama']; ?></h3>
+                        <h2>Jumlah = <?= $terisi['terisi'] ?> / <?= $maxkuota; ?></h2>
                     </div>
                     <div class="col-lg-4" align=right>
                         <a href="<?= base_url('kegiatan/pencacahterpilih/') . $kegiatan['id'] . '/' . $pengawas['nip']  ?>" class="btn btn-info">Pencacah Terpilih</a>

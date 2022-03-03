@@ -11,17 +11,17 @@ class Kegiatan extends CI_Controller
         $this->load->model('Kegiatan_model');
     }
 
-    public function index()
-    {
-        $data['title'] = 'Kegiatan';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    // public function index()
+    // {
+    //     $data['title'] = 'Kegiatan';
+    //     $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('kegiatan/index', $data);
-        $this->load->view('template/footer');
-    }
+    //     $this->load->view('template/header', $data);
+    //     $this->load->view('template/sidebar', $data);
+    //     $this->load->view('template/topbar', $data);
+    //     $this->load->view('kegiatan/index', $data);
+    //     $this->load->view('template/footer');
+    // }
 
     public function survei()
     {
@@ -47,6 +47,7 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
         $this->form_validation->set_rules('ob', 'OB', 'required|trim');
+        $this->form_validation->set_rules('honor', 'Honor', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -64,6 +65,7 @@ class Kegiatan extends CI_Controller
                 'jenis_kegiatan' => '1',
                 'seksi_id' => $seksi_id,
                 'ob' => $this->input->post('ob'),
+                'honor' => $this->input->post('honor'),
                 'created_by' => $pegawai['nip'],
             ];
 
@@ -93,6 +95,8 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
         $this->form_validation->set_rules('ob', 'OB', 'required|trim');
+        $this->form_validation->set_rules('honor', 'Honor', 'required|trim');
+
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -109,6 +113,8 @@ class Kegiatan extends CI_Controller
                 'k_pencacah' => $this->input->post('k_pencacah'),
                 'jenis_kegiatan' => '2',
                 'ob' => $this->input->post('ob'),
+                'honor' => $this->input->post('honor'),
+
                 'created_by' => $pegawai['nip'],
 
             ];
@@ -135,6 +141,9 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
         $this->form_validation->set_rules('ob', 'OB', 'required|trim');
+        $this->form_validation->set_rules('honor', 'Honor', 'required|trim');
+
+
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -155,7 +164,9 @@ class Kegiatan extends CI_Controller
                 'finish' => strtotime($this->input->post('finish')),
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
-                'ob' => $this->input->post('ob')
+                'ob' => $this->input->post('ob'),
+                'honor' => $this->input->post('honor'),
+
             ];
 
             if (strtotime($this->input->post('finish')) > strtotime($this->input->post('start'))) {
@@ -184,6 +195,8 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
         $this->form_validation->set_rules('ob', 'OB', 'required|trim');
+        $this->form_validation->set_rules('honor', 'Honor', 'required|trim');
+
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -204,7 +217,9 @@ class Kegiatan extends CI_Controller
                 'finish' => strtotime($this->input->post('finish')),
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
-                'ob' => $this->input->post('ob')
+                'ob' => $this->input->post('ob'),
+                'honor' => $this->input->post('honor'),
+
             ];
 
             if (strtotime($this->input->post('finish')) > strtotime($this->input->post('start'))) {
@@ -699,6 +714,16 @@ class Kegiatan extends CI_Controller
 
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
 
+        $sqlcount = "SELECT COUNT(*) AS terisi FROM all_kegiatan_pencacah WHERE id_pengawas = $nip and kegiatan_id = $kegiatan_id";
+        $data['terisi'] = $this->db->query($sqlcount)->row_array();
+
+        if (fmod($data['kegiatan']['k_pencacah'], $data['kegiatan']['k_pengawas']) == 0) {
+            $data['maxkuota'] = ($data['kegiatan']['k_pencacah'] / $data['kegiatan']['k_pengawas']);
+        } else {
+            $data['maxkuota'] = ($data['kegiatan']['k_pencacah'] / $data['kegiatan']['k_pengawas']) + 1;
+        }
+
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);
@@ -711,6 +736,13 @@ class Kegiatan extends CI_Controller
         $kegiatan_id = $this->input->post('kegiatanId');
         $nip = $this->input->post('nip');
         $id_mitra = $this->input->post('id_mitra');
+        $kuota = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
+        if (fmod($kuota['k_pencacah'], $kuota['k_pengawas']) == 0) {
+            $maxkuota = $kuota['k_pencacah'] / $kuota['k_pengawas'];
+        } else {
+            $maxkuota = ($kuota['k_pencacah'] / $kuota['k_pengawas']) + 1;
+        }
+        $terisi = $this->db->get_where('all_kegiatan_pencacah', ['kegiatan_id' => $kegiatan_id, 'id_pengawas' => $nip])->num_rows();
 
         $data = [
             'kegiatan_id' => $kegiatan_id,
@@ -721,14 +753,18 @@ class Kegiatan extends CI_Controller
         $result = $this->db->get_where('all_kegiatan_pencacah', $data);
 
         if ($result->num_rows() < 1) {
-
-            $query = "UPDATE all_kegiatan_pencacah SET id_pengawas = $nip WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
-            $this->db->query($query);
+            if ($terisi < $maxkuota) {
+                $query = "UPDATE all_kegiatan_pencacah SET id_pengawas = $nip WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
+                $this->db->query($query);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kuota penuh!</div>');
+            }
         } else {
             $query = "UPDATE all_kegiatan_pencacah SET id_pengawas = NULL WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
             $this->db->query($query);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
         }
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
     }
 
     function pencacahterpilih($kegiatan_id, $nip)
@@ -749,5 +785,24 @@ class Kegiatan extends CI_Controller
         $this->load->view('template/topbar', $data);
         $this->load->view('kegiatan/pencacah-terpilih', $data);
         $this->load->view('template/footer');
+    }
+
+    // tambahan mochi
+    public function detailKegiatan($id)
+    {
+        $kegiatan = $this->db->get_where('kegiatan', ['id' => $id])->row_array();
+        $operator = $this->db->get_where('pegawai', ['nip' => $kegiatan['created_by']])->row_array();
+        $sqlpengawas = "SELECT B.nama as nama FROM all_kegiatan_pengawas AS A JOIN pegawai AS B ON A.id_pengawas = B.nip WHERE A.kegiatan_id = $id UNION SELECT C.nama_lengkap as nama FROM all_kegiatan_pengawas AS A JOIN mitra AS C ON A.id_pengawas = C.id_mitra WHERE A.kegiatan_id = $id";
+        $pengawas = $this->db->query($sqlpengawas)->result_array();
+        $sqlpencacah = "SELECT B.nama as nama FROM all_kegiatan_pencacah AS A JOIN pegawai AS B ON A.id_mitra = B.nip WHERE A.kegiatan_id = $id UNION SELECT C.nama_lengkap as nama FROM all_kegiatan_pencacah AS A JOIN mitra AS C ON A.id_mitra = C.id_mitra WHERE A.kegiatan_id = $id;";
+        $pencacah = $this->db->query($sqlpencacah)->result_array();
+        $data = [
+            'kegiatan' => $kegiatan,
+            'operator' => $operator,
+            'pengawas' => $pengawas,
+            'pencacah' => $pencacah,
+        ];
+
+        $this->load->view('kegiatan/detail-kegiatan', $data);
     }
 }

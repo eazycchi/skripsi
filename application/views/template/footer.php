@@ -66,6 +66,8 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.min.js.map"></script>
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+
 
 
 
@@ -294,6 +296,69 @@
          $('#tabel-pencacah').css('display', 'none')
          $('#tabel-pengawas').css('display', 'block')
      })
+ </script>
+
+ <script>
+     $(function() {
+         $("#modalSurveiSensus").validate({
+             rules: {
+                 nama: {
+                     required: true,
+                     minlength: 6
+                 },
+                 start: {
+                     required: true,
+                 },
+                 finish: {
+                     required: true,
+                 },
+                 k_pengawas: {
+                     required: true,
+                     min: 1,
+                 },
+                 k_pencacah: {
+                     required: true,
+                     min: 1,
+                 },
+                 ob: {
+                     required: true,
+                 },
+                 honor: {
+                     required: true,
+                     max: 3200000
+                 },
+                 action: "required"
+             },
+             messages: {
+                 nama: {
+                     required: "Kolom tidak boleh kosong",
+                     minlength: "Minimal 6 karakter"
+                 },
+                 start: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 finish: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 k_pengawas: {
+                     required: "Kolom tidak boleh kosong",
+                     min: "Nilai harus lebih dari 1"
+                 },
+                 k_pencacah: {
+                     required: "Kolom tidak boleh kosong",
+                     min: "Nilai harus lebih dari 1"
+                 },
+                 ob: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 honor: {
+                     required: "Kolom tidak boleh kosong",
+                     max: "Maksimal yang dapat diberikan adalah 3,2 juta"
+                 },
+                 action: "Kolom tidak boleh kosong"
+             }
+         });
+     });
  </script>
 
  </body>
