@@ -28,11 +28,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
     <link rel="stylesheet" href="hhttps://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.min.css">
 
-
-
-
-
-
+    <!-- pesan error -->
+    <style>
+        .error {
+            color: red;
+            font-size: 1rem;
+            position: relative;
+            line-height: 1;
+            width: 100%;
+        }
+    </style>
 
 </head>
 

@@ -1,12 +1,3 @@
-<style>
-    .error {
-        color: red;
-        font-size: 1rem;
-        position: relative;
-        line-height: 1;
-        width: 100%;
-    }
-</style>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 

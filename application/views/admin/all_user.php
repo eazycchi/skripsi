@@ -74,7 +74,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('admin/alluser') ?>" method="post">
+            <form action="<?= base_url('admin/alluser') ?>" method="post" id="validasi">
                 <div class="modal-body">
                     <div class="form-group">
                         <select name="email" id="email" class="form-control">

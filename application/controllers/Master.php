@@ -100,7 +100,6 @@ class Master extends CI_Controller
                 $error = array('error' => $this->upload->display_errors());
             } else {
                 $data = $this->upload->data();
-
                 error_reporting(E_ALL);
                 date_default_timezone_set('Asia/Jakarta');
 

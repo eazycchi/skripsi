@@ -59,7 +59,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('admin/role') ?>" method="post">
+            <form action="<?= base_url('admin/role') ?>" method="post" id="validasi">
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="text" class="form-control" id="role" name="role" placeholder="Role name">

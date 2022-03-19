@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-lg-6" style="color:#00264d;">
-            <form action="" method="post">
+            <form action="" method="post" id="validasi">
                 <div class="form-group row">
                     <label for="title" class="col-sm-3 col-form-label">Title</label>
                     <div class="col-sm-8">

@@ -63,7 +63,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('master/pegawai') ?>" method="post">
+            <form action="<?= base_url('master/pegawai') ?>" method="post" id="validasi">
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="text" class="form-control" id="nip" name="nip" placeholder="NIP">

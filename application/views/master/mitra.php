@@ -94,7 +94,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('master/mitra') ?>" method="post">
+            <form action="<?= base_url('master/mitra') ?>" method="post" id="validasi">
                 <div class="modal-body">
                     <!-- <div class="form-group">
                         <input type="text" class="form-control" id="id_mitra" name="id_mitra" placeholder="ID Mitra">

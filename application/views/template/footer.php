@@ -298,6 +298,7 @@
      })
  </script>
 
+ <!-- Validasi modal survei dan sensus -->
  <script>
      $(function() {
          $("#modalSurveiSensus").validate({
@@ -361,6 +362,138 @@
      });
  </script>
 
+ <script>
+     $(function() {
+         $("#validasi").validate({
+             rules: {
+                 role: {
+                     required: true,
+                 },
+                 role_id: {
+                     required: true,
+                 },
+                 seksi_id: {
+                     required: true,
+                 },
+                 email: {
+                     required: true,
+                 },
+                 nama_lengkap: {
+                     required: true,
+                 },
+                 nama_panggilan: {
+                     required: true,
+                 },
+                 alamat: {
+                     required: true,
+                 },
+                 no_hp: {
+                     required: true,
+                 },
+                 no_wa: {
+                     required: true,
+                 },
+                 no_tsel: {
+                     required: true,
+                 },
+                 pekerjaan_utama: {
+                     required: true,
+                 },
+                 kompetensi: {
+                     required: true,
+                 },
+                 bahasa: {
+                     required: true,
+                 },
+                 nip: {
+                     required: true,
+                 },
+                 nama: {
+                     required: true,
+                 },
+                 jabatan: {
+                     required: true,
+                 },
+                 menu: {
+                     required: true,
+                 },
+                 url: {
+                     required: true,
+                 },
+                 icon: {
+                     required: true,
+                 },
+                 title: {
+                     required: true,
+                 },
+                 action: "required"
+             },
+             messages: {
+                 role: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 role_id: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 seksi_id: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 email: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 nama_lengkap: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 nama_panggilan: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 alamat: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 no_hp: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 no_wa: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 no_tsel: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 pekerjaan_utama: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 kompetensi: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 bahasa: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 nip: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 nama: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 jabatan: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 menu: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 url: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 icon: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 title: {
+                     required: "Kolom tidak boleh kosong",
+                 },
+                 action: "Kolom tidak boleh kosong"
+             }
+         });
+     });
+ </script>
  </body>
 
  </html>
