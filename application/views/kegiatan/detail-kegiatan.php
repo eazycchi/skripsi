@@ -84,7 +84,7 @@
 <body>
     <div class="page">
         <h2 align="center">Laporan <?= $kegiatan['nama']; ?></h2>
-        <h2 align="center">BPS Kota Jember</h2>
+        <h2 align="center">BPS Kabupaten Jember</h2>
         <hr>
         <p>Berikut adalah daftar pegawai dan mitra yang terlibat dalam <?= $kegiatan['nama']; ?></p>
         <table class="table">
@@ -99,7 +99,8 @@
                 <?php $i = 1; ?>
                 <!-- Operator seksi -->
                 <tr align="center">
-                    <td><?= $i ?></td>
+                    <td><?= $i;
+                        $i++ ?></td>
                     <td align="left"><?= $operator['nama']; ?></td>
                     <td>Kepala Survei</td>
                 </tr>

@@ -30,22 +30,24 @@
                             <?php $now = (time()); ?>
                             <tr align=center>
                                 <th scope="row"><?= $i; ?></th>
-                                <?php if ($now > $s['start']) : ?>
-                                    <td><a href="<?= base_url('kegiatan/detailKegiatan/') . $s['id'] ?>"><?= $s['nama']; ?></a></td>
-                                <?php else :  ?>
-                                    <td><?= $s['nama']; ?></td>
-                                <?php endif;  ?>
+                                <td>
+                                    <?php if ($now > $s['finish']) : ?>
+                                        <a href="<?= base_url('kegiatan/detailKegiatan/') . $s['id'] ?>"><?= $s['nama']; ?></a>
+                                    <?php else :  ?>
+                                        <?= $s['nama']; ?>
+                                    <?php endif;  ?>
+                                </td>
                                 <td><?= date('d F Y', $s['start']); ?></td>
                                 <td><?= date('d F Y', $s['finish']); ?></td>
                                 <td><?= $s['k_pengawas']; ?></td>
                                 <td><?= $s['k_pencacah']; ?></td>
                                 <td>
                                     <?php if ($now > $s['start']) : ?>
-                                        <a class="badge badge-secondary">tambah pengawas</a>
                                         <a class="badge badge-secondary">tambah pencacah</a>
+                                        <a class="badge badge-secondary">tambah pengawas</a>
                                     <?php else : ?>
-                                        <a href="<?= base_url('kegiatan/tambah_pengawas/') . $s['id']; ?>" class="badge badge-success">tambah pengawas</a>
                                         <a href="<?= base_url('kegiatan/tambah_pencacah/') . $s['id']; ?>" class="badge badge-info">tambah pencacah</a>
+                                        <a href="<?= base_url('kegiatan/tambah_pengawas/') . $s['id']; ?>" class="badge badge-success">tambah pengawas</a>
                                     <?php endif; ?>
                                     <a href="<?= base_url('kegiatan/editsurvei/') . $s['id']; ?>" class="badge badge-primary">edit</a>
                                     <a href="<?= base_url('kegiatan/deletesurvei/') . $s['id']; ?>" class="badge badge-danger">delete</a>

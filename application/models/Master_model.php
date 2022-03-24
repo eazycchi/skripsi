@@ -62,4 +62,19 @@ class Master_model extends CI_Model
 
         return $data->num_rows();
     }
+
+    public function cek_email($email)
+    {
+        $this->db->where('email', $email);
+        $data = $this->db->get('pegawai');
+
+        return $data->num_rows();
+    }
+
+    public function insert_batch2($data)
+    {
+        $this->db->insert_batch('pegawai', $data);
+
+        return $this->db->affected_rows();
+    }
 }

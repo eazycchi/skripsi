@@ -149,6 +149,65 @@ class Master extends CI_Controller
         }
     }
 
+    // tambahan mochi
+    public function importPegawai()
+    {
+        $this->form_validation->set_rules('excel', 'File', 'trim|required');
+        if ($_FILES['excel']['name'] == '') {
+            $this->session->set_flashdata('msg', 'File harus diisi');
+        } else {
+            $config['upload_path'] = './assets/excel/';
+            $config['allowed_types'] = 'xls|xlsx';
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('excel')) {
+                $error = array('error' => $this->upload->display_errors());
+            } else {
+                $data = $this->upload->data();
+                error_reporting(E_ALL);
+                date_default_timezone_set('Asia/Jakarta');
+
+                include './assets/phpexcel/Classes/PHPExcel/IOFactory.php';
+
+                $inputFileName = './assets/excel/' . $data['file_name'];
+                $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+                $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+
+                $index = 0;
+                foreach ($sheetData as $key => $value) {
+                    if ($key != 1) {
+                        $check = $this->Master_model->cek_email($value['C']);
+
+                        if ($check != 1) {
+                            // $resultData[$index]['id_mitra'] = $value['A'];
+                            $resultData[$index]['nip'] = $value['A'];
+                            $resultData[$index]['nama'] = $value['B'];
+                            $resultData[$index]['email'] = $value['C'];
+                            $resultData[$index]['jabatan'] = $value['D'];
+                        }
+                    }
+                    $index++;
+                }
+
+                unlink('./assets/excel/' . $data['file_name']);
+
+                if (count($resultData) != 0) {
+                    $result = $this->Master_model->insert_batch2($resultData);
+                    if ($result > 0) {
+                        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pegawai has been imported!</div>');
+                        redirect('master/pegawai');
+                        echo json_encode($resultData);
+                        die;
+                    }
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Import failed!</div>');
+                    redirect('master/pegawai');
+                }
+            }
+        }
+    }
+
     public function details_mitra($id_mitra)
     {
         $data['title'] = 'Details Mitra';
@@ -320,7 +379,7 @@ class Master extends CI_Controller
 
     function deletepegawai($nip)
     {
-        $query = "SELECT email FROM pegawai WHERE nip = $nip";
+        $query = "SELECT email FROM pegawai WHERE nip = '$nip'";
         $email = IMPLODE($this->db->query($query)->row_array());
         $this->Master_model->deletepegawaifromuser($email, 4);
         $this->Master_model->deletepegawaifromuser($email, 3);

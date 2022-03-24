@@ -7,7 +7,17 @@
 
             <?= $this->session->flashdata('message'); ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newPegawaiModal">Add New Pegawai</a>
+            <div class="row" align=left style="color:#00264d;">
+                <div class="col-sm-4">
+                    <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newPegawaiModal">Add New Pegawai</a>
+                </div>
+                <div class="col-sm-4">
+                    <a href="" class="btn btn-success mb-3" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-upload"></i> Import Data Pegawai</a>
+                </div>
+                <div class="col-sm-4">
+                    <a href="<?= base_url('excel/data_pegawai.xlsx') ?>" class="btn btn-danger mb-3"><i class="fas fa-file-download"></i> Download Format Import</a>
+                </div>
+            </div>
 
             <div class="table-responsive">
                 <table class="table table-borderless table-hover" id="mydata">
@@ -85,6 +95,31 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- model  -->
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel">Import Data Pegawai</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('master/importPegawai') ?>" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="file" class="form-control" name="excel" aria-describedby="sizing-addon2">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Import Data</button>
                 </div>
             </form>
         </div>

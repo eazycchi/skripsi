@@ -31,14 +31,10 @@
                                 <td><?= $k['nama']; ?></td>
                                 <?php $now = (time()); ?>
                                 <td>
-                                    <?php if ($now < $nama_kegiatan['start']) : ?>
-
-                                        <!-- <a class="badge badge-secondary">Isi nilai</a> -->
+                                    <?php if ($now > $nama_kegiatan['finish']) : ?>
                                         <a href="<?= base_url('penilaian/isinilaipengawas/') . $nama_kegiatan['id'] . "/" . $k['id_pengawas'] ?>" class="badge badge-primary">Isi nilai</a>
-
                                     <?php else : ?>
-
-                                        <a href="<?= base_url('penilaian/isinilaipengawas/') . $nama_kegiatan['id'] . "/" . $k['id_pengawas'] ?>" class="badge badge-primary">Isi nilai</a>
+                                        <a class="badge badge-secondary">Isi nilai</a>
                                     <?php endif; ?>
                                 </td>
 

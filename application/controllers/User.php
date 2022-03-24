@@ -261,13 +261,13 @@ class User extends CI_Controller
                     $query = "SELECT SUM(A.nilai) as nilai FROM all_penilaian AS A JOIN all_kegiatan_pencacah AS B ON A.all_kegiatan_pencacah_id = B.id WHERE B.id_mitra = $id AND A.kriteria_id = $krit";
                     $result = $this->db->query($query)->row_array();
                     $rata2 = (float) $result['nilai'] / $jmlkegiatan;
-                    $nilai_temp =  50 + (40 * ($rata2 - $minsub) / ($maxsub - $minsub));
+                    $nilai_temp =  50 + (45 * ($rata2 - $minsub) / ($maxsub - $minsub));
                     $nilai_util = $bobot * $nilai_temp;
                     $nilai = $nilai + $nilai_util;
                 }
                 $kegiatansql = "SELECT COUNT(DISTINCT kegiatan_id) as t FROM all_kegiatan_pencacah";
                 $tambahan = (int) implode($this->db->query($kegiatansql)->row_array());
-                $nilai = $nilai + (10 * ($jmlkegiatan / $tambahan));
+                $nilai = $nilai + (5 * ($jmlkegiatan / $tambahan));
                 $this->db->set('nilai', round($nilai, 2));
                 $this->db->where('id_mitra', $id);
                 $this->db->update('mitra');
@@ -315,13 +315,13 @@ class User extends CI_Controller
                     $query = "SELECT SUM(A.nilai) as nilai FROM penilaian_pengawas AS A JOIN all_kegiatan_pengawas AS B ON A.all_kegiatan_pengawas_id = B.id WHERE B.id_pengawas = $nip AND A.kriteria_id = $krit";
                     $result = $this->db->query($query)->row_array();
                     $rata2 = (float) $result['nilai'] / $pengali;
-                    $nilai_temp =  50 + (40 * ($rata2 - $minsub) / ($maxsub - $minsub));
+                    $nilai_temp =  50 + (45 * ($rata2 - $minsub) / ($maxsub - $minsub));
                     $nilai_util = $bobot * $nilai_temp;
                     $nilai = $nilai + $nilai_util;
                 }
                 $kegiatansql = "SELECT COUNT(DISTINCT kegiatan_id) FROM all_kegiatan_pengawas";
                 $tambahan = (int) implode($this->db->query($kegiatansql)->row_array());
-                $nilai = $nilai + (10 * ($jmlkegiatan / $tambahan));
+                $nilai = $nilai + (5 * ($jmlkegiatan / $tambahan));
                 $this->db->set('nilai', round($nilai, 2));
                 $this->db->where('nip', $nip);
                 $this->db->update('pegawai');

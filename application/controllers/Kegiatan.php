@@ -298,12 +298,11 @@ class Kegiatan extends CI_Controller
         }
 
         $data['pencacah'] = $this->db->query($sql_pencacah)->result_array();
-
         $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan_pencacah WHERE kegiatan_id = $id";
         $data['kuota'] = $this->db->query($sqlkuota)->row_array();
-
-
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $id])->row_array();
+        $data['controller'] = $this;
+
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -804,5 +803,19 @@ class Kegiatan extends CI_Controller
         ];
 
         $this->load->view('kegiatan/detail-kegiatan', $data);
+    }
+
+    // tambahan mochi
+    public function cekHonor($id, $date)
+    {
+        $honor = 0;
+        $query = "SELECT b.finish AS finis, b.honor AS honor FROM all_kegiatan_pencacah AS a JOIN kegiatan AS b ON a.kegiatan_id = b.id WHERE a.id_mitra = $id";
+        $kegiatan = $this->db->query($query)->result_array();
+        foreach ($kegiatan as $k) {
+            if (date("F", $k['finis']) == date("F", $date)) {
+                $honor = $honor + $k['honor'];
+            }
+        }
+        return $honor;
     }
 }
