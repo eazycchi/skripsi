@@ -5,7 +5,7 @@
     <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background-color:  #b3b3b3;">
+        <nav class="navbar navbar-expand navbar-light topbar static-top shadow" style="background-color:  #b3b3b3;">
 
             <!-- Sidebar Toggle (Topbar) -->
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -13,7 +13,6 @@
             </button>
 
             <h3 style="color: #003366;"><?= $title ?></h3>
-
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto" style="color: #003366;">
 
@@ -54,8 +53,20 @@
                         </a>
                     </div>
                 </li>
-
             </ul>
-
         </nav>
+        <?php if (($title == "Dashboard" || $title == "My Profile")) :
+        else : ?>
+            <div class="mt-2"></div>
+
+            <div class="container-fluid">
+                <a class="btn btn-primary btn-icon-split" href="javascript:window.history.go(-1);">
+                    <span class="icon">
+                        <i class="fas fa-arrow-left"></i>
+                    </span>
+                    <span class="text"><b>Kembali</b></span>
+                </a>
+            </div>
+        <?php endif; ?>
+        <div class="mb-4"></div>
         <!-- End of Topbar -->

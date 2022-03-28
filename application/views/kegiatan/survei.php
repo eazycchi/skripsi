@@ -1,14 +1,10 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <div class="row">
         <div class="col-lg">
             <?= form_error('survei', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-
             <?= $this->session->flashdata('message'); ?>
-
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newSurveiModal">Tambahkan Survei Baru</a>
-
             <div class="table-responsive">
                 <table class="table table-borderless table-hover" id="mydata">
                     <thead style="background-color: #00264d; color:#e6e6e6;">
@@ -21,7 +17,6 @@
                             <th scope="col">Jumlah Pencacah</th>
                             <th scope="col">Action</th>
                             <th scope="col">Status</th>
-
                         </tr>
                     </thead>
                     <tbody style="background-color: #ffffff; color: #00264d;">
@@ -52,8 +47,6 @@
                                     <a href="<?= base_url('kegiatan/editsurvei/') . $s['id']; ?>" class="badge badge-primary">edit</a>
                                     <a href="<?= base_url('kegiatan/deletesurvei/') . $s['id']; ?>" class="badge badge-danger">delete</a>
                                 </td>
-
-
                                 <?php if ($now < $s['start']) : ?>
                                     <td><a class="badge badge-warning">belum mulai</a></td>
                                 <?php elseif ($now > $s['finish']) : ?>
@@ -67,18 +60,13 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
-
     </div>
     <br>
-
 </div>
 <!-- /.container-fluid -->
-
 </div>
 <!-- End of Main Content -->
-
 
 <!-- Modal -->
 <div class="modal fade" id="newSurveiModal" tabindex="-1" role="dialog" aria-labelledby="newSurveiModalLabel" aria-hidden="true">

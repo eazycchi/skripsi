@@ -13,20 +13,39 @@ class User extends CI_Controller
     public function index()
     {
         $data['title'] = 'My Profile';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
         $email = $this->session->userdata('email');
+        $data['user'] = $this->db->get_where('user', ['email' => $email])->row_array();
 
+        if ($this->session->userdata('role_id') == 3) {
+            $data['jmlPegawai'] = $this->db->count_all_results('pegawai');
+            $data['jmlMitra'] = $this->db->count_all_results('mitra');
+            $queryKegiatan = "SELECT a.* FROM kegiatan AS a JOIN pegawai AS b ON a.created_by = b.nip WHERE b.email = '$email' ORDER BY a.start ASC";
+            $data['kegiatan']['daftar'] = $this->db->query($queryKegiatan)->result_array();
+            $data['kegiatan']['current'] = $this->db->get_where('kegiatan', ['start <=' => time(), 'finish >' => time()])->num_rows();
+            $data['kegiatan']['next'] = $this->db->get_where('kegiatan', ['start >' => time()])->num_rows();
+            $data['kegiatan']['done'] = $this->db->get_where('kegiatan', ['finish <' => time()])->num_rows();
+        }
+        if ($this->session->userdata('role_id') == 4) {
+            $datadiri = $this->db->get_where('pegawai', ['email' => $email])->row_array();
+            $data['nilai'] = $datadiri['nilai'];
+            $nip = $datadiri['nip'];
+            $query1 = "SELECT a.* FROM all_kegiatan_pengawas AS a JOIN pegawai AS b ON a.id_pengawas = b.nip WHERE b.email = '$email'";
+            $jmlpgws = $this->db->query($query1)->num_rows();
+            $query2 = "SELECT a.* FROM all_kegiatan_pencacah AS a JOIN pegawai AS b ON a.id_mitra = b.nip WHERE b.email = '$email'";
+            $jmlpnch = $this->db->query($query2)->num_rows();
+            $data['jmlKegiatan'] = $jmlpgws + $jmlpnch;
+            $query3 = "SELECT a.* FROM kegiatan AS a JOIN all_kegiatan_pengawas AS b ON a.id = b.kegiatan_id WHERE b.id_pengawas = '$nip' UNION (SELECT a.* FROM kegiatan AS a JOIN all_kegiatan_pencacah AS c ON a.id = c.kegiatan_id WHERE c.id_mitra = '$nip') ORDER BY start ASC";
+            $data['kegiatan'] = $this->db->query($query3)->result_array();
+        }
+        if ($this->session->userdata('role_id') == 5) {
+            $datadiri = $this->db->get_where('mitra', ['email' => $email])->row_array();
+            $id_mitra = $datadiri['id_mitra'];
+            $query = "SELECT a.* FROM kegiatan AS a JOIN all_kegiatan_pencacah AS c ON a.id = c.kegiatan_id WHERE c.id_mitra = '$id_mitra' ORDER BY a.start ASC";
+            $data['kegiatan'] = $this->db->query($query)->result_array();
+        }
         $sqlpegawai = "SELECT pegawai.nama as nama, pegawai.email as email FROM pegawai WHERE pegawai.email = '$email' UNION (SELECT mitra.nama_lengkap as nama, mitra.email as email FROM mitra WHERE mitra.email = '$email')";
         $data['pegawai'] = $this->db->query($sqlpegawai)->row_array();
-        $data['mitra'] = $this->db->get_where('mitra', ['email' => $this->session->userdata('email')])->row_array();
-
-        // $id = $data['mitra']['id_mitra'];
-
-        // $sql = "SELECT avg(nilai) as nilai FROM nilai WHERE id_mitra = $id GROUP BY id_mitra";
-
-        // $data['nilai'] = $this->db->query($sql)->row_array();
-
+        $data['mitra'] = $this->db->get_where('mitra', ['email' => $email])->row_array();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
