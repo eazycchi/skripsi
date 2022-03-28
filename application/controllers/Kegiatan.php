@@ -236,7 +236,6 @@ class Kegiatan extends CI_Controller
         }
     }
 
-
     function deletesurvei($id)
     {
         $q1 = "SELECT id FROM all_kegiatan_pencacah WHERE kegiatan_id = $id";
@@ -719,7 +718,7 @@ class Kegiatan extends CI_Controller
         if (fmod($data['kegiatan']['k_pencacah'], $data['kegiatan']['k_pengawas']) == 0) {
             $data['maxkuota'] = ($data['kegiatan']['k_pencacah'] / $data['kegiatan']['k_pengawas']);
         } else {
-            $data['maxkuota'] = ($data['kegiatan']['k_pencacah'] / $data['kegiatan']['k_pengawas']) + 1;
+            $data['maxkuota'] = floor($data['kegiatan']['k_pencacah'] / $data['kegiatan']['k_pengawas']) + 1;
         }
 
 
@@ -793,7 +792,7 @@ class Kegiatan extends CI_Controller
         $operator = $this->db->get_where('pegawai', ['nip' => $kegiatan['created_by']])->row_array();
         $sqlpengawas = "SELECT B.nama as nama FROM all_kegiatan_pengawas AS A JOIN pegawai AS B ON A.id_pengawas = B.nip WHERE A.kegiatan_id = $id UNION SELECT C.nama_lengkap as nama FROM all_kegiatan_pengawas AS A JOIN mitra AS C ON A.id_pengawas = C.id_mitra WHERE A.kegiatan_id = $id";
         $pengawas = $this->db->query($sqlpengawas)->result_array();
-        $sqlpencacah = "SELECT B.nama as nama FROM all_kegiatan_pencacah AS A JOIN pegawai AS B ON A.id_mitra = B.nip WHERE A.kegiatan_id = $id UNION SELECT C.nama_lengkap as nama FROM all_kegiatan_pencacah AS A JOIN mitra AS C ON A.id_mitra = C.id_mitra WHERE A.kegiatan_id = $id;";
+        $sqlpencacah = "SELECT B.nama as nama FROM all_kegiatan_pencacah AS A JOIN pegawai AS B ON A.id_mitra = B.nip WHERE A.kegiatan_id = $id UNION SELECT C.nama_lengkap as nama FROM all_kegiatan_pencacah AS A JOIN mitra AS C ON A.id_mitra = C.id_mitra WHERE A.kegiatan_id = $id";
         $pencacah = $this->db->query($sqlpencacah)->result_array();
         $data = [
             'kegiatan' => $kegiatan,
