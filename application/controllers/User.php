@@ -58,6 +58,7 @@ class User extends CI_Controller
     {
         $data['title'] = 'Edit Profile';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $user = explode('@gmail.com', $this->session->userdata('email'));
 
         $this->form_validation->set_rules('email', 'Email', 'required|trim');
 
@@ -70,14 +71,12 @@ class User extends CI_Controller
         } else {
             // $nama = $this->input->post('nama');
             $email = $this->input->post('email');
-
             $upload_image = $_FILES['image'];
-
-
             if ($upload_image) {
                 $config['allowed_types'] = 'gif|jpg|png';
                 $config['max_size'] = '2048';
                 $config['upload_path'] = './assets/img/profile/';
+                $config['file_name'] = $user[0] . '_profile';
 
                 $this->load->library('upload', $config);
 
@@ -86,7 +85,6 @@ class User extends CI_Controller
                     if ($old_image != 'default.jpg') {
                         unlink(FCPATH . 'assets/img/profile/' . $old_image);
                     }
-
                     $new_image = $this->upload->data('file_name');
                     $this->db->set('image', $new_image);
                 } else {
