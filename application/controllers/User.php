@@ -221,6 +221,7 @@ class User extends CI_Controller
             }
         }
     }
+
     public function ranking()
     {
         $this->refreshRank();

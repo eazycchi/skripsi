@@ -300,7 +300,7 @@ class Penilaian extends CI_Controller
         $kriteria_id = $this->input->post('kriteriaId');
         $nilai = $this->input->post('nilaiId');
 
-        $data = [
+        $insert = [
             'all_kegiatan_pengawas_id' => $all_kegiatan_pengawas_id,
             'id_pengawas' => $id_pengawas,
             'id_penilai' => $id_penilai,
@@ -315,9 +315,8 @@ class Penilaian extends CI_Controller
         ];
 
         $result = $this->db->get_where('penilaian_pengawas', $data2);
-
         if ($result->num_rows() < 1) {
-            $this->db->insert('penilaian_pengawas', $data);
+            $this->db->insert('penilaian_pengawas', $insert);
         } else {
             $query = "UPDATE penilaian_pengawas SET nilai = $nilai WHERE all_kegiatan_pengawas_id = $all_kegiatan_pengawas_id  AND id_pengawas = $id_pengawas AND id_penilai = $id_penilai AND kriteria_id = $kriteria_id";
             $this->db->query($query);

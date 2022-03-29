@@ -90,6 +90,7 @@
 
 <body>
     <div class="page">
+
         <!-- Header Surat -->
         <div class="row">
             <div class="col-2" align="center">
@@ -128,7 +129,7 @@
                                 <td>: <?= strftime("%d %B %Y", $kegiatan['finish']); ?></td>
                             </tr>
                             <tr>
-                                <td>tempat</td>
+                                <td>wilayah</td>
                                 <td>: Kabupaten Jember</td>
                             </tr>
                         </tbody>
@@ -140,7 +141,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col mx-5">
+                <div class="col-12">
                     <table class="table">
                         <thead>
                             <tr>
@@ -156,7 +157,7 @@
                                 <td><?= $i;
                                     $i++ ?></td>
                                 <td align="left"><?= $operator['nama']; ?></td>
-                                <td>Koordinator Survei</td>
+                                <td>Ketua Pelaksana</td>
                             </tr>
                             <!-- Pengawas -->
                             <?php foreach ($pengawas as $p) : ?>
@@ -188,7 +189,7 @@
                 <table style="width: 85%;" align="center">
                     <tbody align="center">
                         <tr>
-                            <th>Koordinator</th>
+                            <th>Ketua Pelaksana</th>
                             <th>Kepala</th>
                         </tr>
                         <tr>
