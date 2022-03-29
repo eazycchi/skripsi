@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 02, 2022 at 02:42 PM
+-- Generation Time: Mar 29, 2022 at 04:18 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -76,7 +76,8 @@ CREATE TABLE `kegiatan` (
   `jenis_kegiatan` int(1) NOT NULL,
   `seksi_id` int(1) UNSIGNED NOT NULL DEFAULT 5,
   `ob` enum('0','1') NOT NULL DEFAULT '0',
-  `created_by` varchar(18) NOT NULL
+  `created_by` varchar(18) NOT NULL,
+  `honor` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -109,13 +110,13 @@ INSERT INTO `kriteria` (`id`, `prioritas`, `nama`, `bobot`, `target`, `deskripsi
 (8, 10, 'Inisiatif Kerja', 0.01, 'pencacah', NULL),
 (9, 9, 'Loyalitas', 0.021111111111111, 'pencacah', NULL),
 (10, 8, 'Perilaku', 0.033611111111111, 'pencacah', NULL),
-(40, 1, 'Kejujuran', 0.37040816326531, 'pengawas', 'Apakah Pengawas jujur dalam melakukan tugasnya?'),
-(41, 4, 'Integritas', 0.10850340136054, 'pengawas', 'Apakah pengawas berintegritas dalam melakukan tugasnya?'),
-(42, 5, 'Amanah', 0.072789115646258, 'pengawas', 'Apakah seluruh tugas pengawas dapat dilakukan dengan baik?'),
-(44, 2, 'Tanggungjawab', 0.22755102040816, 'pengawas', 'Apakah Pengawas bertanggung jawab atas tugas-tugasnya?'),
-(45, 6, 'Inisiatif', 0.04421768707483, 'pengawas', 'Apakah Pengawas berinisiatif dalam melakukan tugasnya?'),
-(46, 7, 'Kerapian', 0.020408163265306, 'pengawas', 'Apakah Pengawas selalu berpenampilan rapi?'),
-(48, 3, 'Profesional', 0.15612244897959, 'pengawas', 'Apakah yang bersangkutan bersungguh-sungguh dalam melaksanakan tugas?');
+(49, 1, 'Kompeten', 0.37040816326531, 'pengawas', 'Menguasai materi kegiatan serta dapat produktif memberikan hasil yang maksimal'),
+(50, 2, 'Inovatif', 0.22755102040816, 'pengawas', 'Selalu melakukan pemberharuan solusi ketika terjadi berbagai masalah'),
+(51, 3, 'Sistematik', 0.15612244897959, 'pengawas', 'Melaksanakan tugas dengan urutan yang benar sehingga seluruh pekerjaan dapat diselesaikan dengan baik'),
+(52, 4, 'Dedikasi', 0.10850340136054, 'pengawas', 'Memiliki pengabdian tinggi terhadap kegiatan yang sedang diemban'),
+(54, 5, 'Tanggung Jawab', 0.072789115646258, 'pengawas', 'Melaksanakan tugas sesuai dengan ketentuan dan konsisten terhadap perkataan serta bertanggung jawab pada langkah yang diambil'),
+(55, 6, 'Keterbukaan', 0.04421768707483, 'pengawas', 'Menghargai ide, saran, pendapat, masukan, dan kritik dari berbagai pihak'),
+(56, 7, 'Amanah', 0.020408163265306, 'pengawas', 'Melaksanakan seluruh tugas dan tidak menyimpang dari prinsip moralitas');
 
 -- --------------------------------------------------------
 
@@ -135,7 +136,8 @@ CREATE TABLE `mitra` (
   `pekerjaan_utama` varchar(32) NOT NULL,
   `kompetensi` varchar(32) NOT NULL,
   `bahasa` varchar(32) NOT NULL,
-  `is_active` enum('0','1') NOT NULL DEFAULT '1'
+  `is_active` enum('0','1') NOT NULL DEFAULT '1',
+  `nilai` float NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -148,7 +150,8 @@ CREATE TABLE `pegawai` (
   `nip` varchar(18) NOT NULL,
   `nama` varchar(32) NOT NULL,
   `email` varchar(32) NOT NULL,
-  `jabatan` varchar(64) NOT NULL
+  `jabatan` varchar(64) NOT NULL,
+  `nilai` float NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -223,7 +226,7 @@ INSERT INTO `subkriteria` (`nilai`, `prioritas`, `deskripsi`, `bobot`, `konversi
 CREATE TABLE `user` (
   `id` int(11) UNSIGNED NOT NULL,
   `email` varchar(32) NOT NULL,
-  `image` varchar(32) NOT NULL DEFAULT 'default.jpg',
+  `image` varchar(255) NOT NULL DEFAULT 'default.jpg',
   `password` varchar(128) NOT NULL DEFAULT '$2y$10$.Ifh5wIE6hnnJjIbluFNYemnKMmvQp2qJscmi/Owpd4SMoNrW9CyS',
   `role_id` int(11) UNSIGNED NOT NULL,
   `seksi_id` int(1) UNSIGNED NOT NULL DEFAULT 5,
@@ -238,7 +241,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `image`, `password`, `role_id`, `seksi_id`, `is_active`, `date_created`, `token`, `date_created_token`) VALUES
-(19, 'admin@gmail.com', 'default.jpg', '$2y$10$.Ifh5wIE6hnnJjIbluFNYemnKMmvQp2qJscmi/Owpd4SMoNrW9CyS', 1, 5, '1', '2022-01-27', NULL, NULL);
+(1, 'admsimpentra@gmail.com', 'default.jpg', '$2y$10$.Ifh5wIE6hnnJjIbluFNYemnKMmvQp2qJscmi/Owpd4SMoNrW9CyS', 1, 5, '1', '2022-01-27', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -275,7 +278,10 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (69, 5, 21),
 (70, 3, 22),
 (71, 3, 23),
-(72, 4, 23);
+(72, 4, 23),
+(73, 3, 24),
+(74, 4, 24),
+(75, 5, 24);
 
 -- --------------------------------------------------------
 
@@ -300,11 +306,12 @@ INSERT INTO `user_menu` (`id`, `menu`) VALUES
 (5, 'History Penilaian'),
 (6, 'Admin'),
 (7, 'Menu'),
-(8, 'Ranking'),
+(8, 'Kriteria'),
 (19, 'Timeline'),
 (21, 'Penilaian'),
 (22, 'Penilaian'),
-(23, 'Hasil Penilaian Pengawas');
+(23, 'Hasil Penilaian Pengawas'),
+(24, 'Ranking');
 
 -- --------------------------------------------------------
 
@@ -354,19 +361,20 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (12, 1, 'Data Mitra', 'master/mitra', 'fas fa-fw fa-user', '1'),
 (13, 2, 'Survei', 'kegiatan/survei', 'fas fa-fw fa-book', '1'),
 (14, 3, 'Isi Penilaian Pencacah', 'penilaian', 'fas fa-fw fa-pencil-alt', '1'),
-(15, 4, 'Cetak Hasil Penilaian', 'penilaian/pilihkegiatan', 'fas fa-fw fa-file-pdf', '1'),
+(15, 4, 'Cetak Hasil Pencacah', 'penilaian/pilihkegiatan', 'fas fa-fw fa-file-pdf', '1'),
 (16, 5, 'Arsip', 'penilaian/arsip', 'fas fa-fw fa-archive', '1'),
 (20, 2, 'Sensus', 'kegiatan/sensus', 'fas fa-fw fa-book', '1'),
 (25, 6, 'All User', 'admin/alluser', 'fas fa-fw fa-user', '1'),
 (26, 1, 'Data Pegawai', 'master/pegawai', 'fas fa-fw fa-user-tie', '1'),
-(27, 8, 'Ranking Mitra', 'ranking/pilih_kegiatan_nilai_akhir', 'fas fa-fw fa-graduation-cap', '1'),
+(27, 8, 'Ranking Mitra', 'ranking/pilih_kegiatan_nilai_akhir', 'fas fa-fw fa-graduation-cap', '0'),
 (28, 8, 'Data Kriteria', 'ranking/kriteria', 'fas fa-fw fa-key', '1'),
-(29, 8, 'Penghitungan', 'ranking/pilih_kegiatan', 'fas fa-fw fa-pen', '1'),
+(29, 8, 'Perhitungan', 'ranking/pilih_kegiatan', 'fas fa-fw fa-pen', '0'),
 (32, 19, 'Jadwal', 'timeline/index', 'fas fa-fw fa-calendar-alt', '1'),
 (35, 21, 'Isi Penilaian Pengawas', 'penilaian/penilaianpengawas', 'fas fa-fw fa-pencil-alt', '1'),
 (36, 3, 'Isi Penilaian Pengawas', 'penilaian/penilaianpengawas2', 'fas fa-fw fa-pencil-alt', '1'),
 (37, 22, 'Isi Penilaian Pengawas', 'penilaian/penilaianpengawas3', 'fas fa-fw fa-pencil-alt', '1'),
-(38, 23, 'Cetak Hasil Penilaian', 'penilaian/pilihkegiatan2', 'fas fa-fw fa-file-pdf', '1');
+(38, 23, 'Cetak Hasil Pengawas', 'penilaian/pilihkegiatan2', 'fas fa-fw fa-file-pdf', '1'),
+(39, 24, 'Ranking', 'user/ranking', 'fas fa-fw fa-graduation-cap', '1');
 
 --
 -- Indexes for dumped tables
@@ -378,7 +386,6 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 ALTER TABLE `all_kegiatan_pencacah`
   ADD PRIMARY KEY (`id`),
   ADD KEY `all_kegiatan_pencacah_kegiatan_id_foreign` (`kegiatan_id`),
-  ADD KEY `all_kegiatan_pencacah_id_pengawas_foreign` (`id_pengawas`),
   ADD KEY `all_kegiatan_pencacah_id_mitra_foreign` (`id_mitra`);
 
 --
@@ -488,43 +495,43 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `all_kegiatan_pencacah`
 --
 ALTER TABLE `all_kegiatan_pencacah`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `all_kegiatan_pengawas`
 --
 ALTER TABLE `all_kegiatan_pengawas`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `all_penilaian`
 --
 ALTER TABLE `all_penilaian`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
 -- AUTO_INCREMENT for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `mitra`
 --
 ALTER TABLE `mitra`
-  MODIFY `id_mitra` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_mitra` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35090025;
 
 --
 -- AUTO_INCREMENT for table `penilaian_pengawas`
 --
 ALTER TABLE `penilaian_pengawas`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
 
 --
 -- AUTO_INCREMENT for table `seksi`
@@ -542,19 +549,19 @@ ALTER TABLE `subkriteria`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `user_role`
@@ -566,7 +573,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Constraints for dumped tables
@@ -577,7 +584,6 @@ ALTER TABLE `user_sub_menu`
 --
 ALTER TABLE `all_kegiatan_pencacah`
   ADD CONSTRAINT `all_kegiatan_pencacah_id_mitra_foreign` FOREIGN KEY (`id_mitra`) REFERENCES `mitra` (`id_mitra`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `all_kegiatan_pencacah_id_pengawas_foreign` FOREIGN KEY (`id_pengawas`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `all_kegiatan_pencacah_kegiatan_id_foreign` FOREIGN KEY (`kegiatan_id`) REFERENCES `kegiatan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

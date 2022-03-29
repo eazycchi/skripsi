@@ -170,8 +170,11 @@
                             <th>Nilai Rata-rata</th>
                         </tr>
                         <tr>
-                            <td><?= $jmlKegiatan; ?></td>
-                            <td><?= $nilai; ?>
+                            <td>
+                                <div class="h1 mb-0 font-weight-bold text-gray-800"><?= $jmlKegiatan; ?></div>
+                            </td>
+                            <td>
+                                <div class="h1 mb-0 font-weight-bold text-gray-800"><?= $nilai; ?></div>
                                 <?php if ($nilai == 0) {
                                     echo "<br>(Belum ternilai)";
                                 }
@@ -262,8 +265,12 @@
                             <th>Jumlah Mitra</th>
                         </tr>
                         <tr>
-                            <td><?= $jmlPegawai; ?></td>
-                            <td><?= $jmlMitra; ?></td>
+                            <td>
+                                <div class="h1 mb-0 font-weight-bold text-gray-800"><?= $jmlPegawai; ?></div>
+                            </td>
+                            <td>
+                                <div class="h1 mb-0 font-weight-bold text-gray-800"><?= $jmlMitra; ?></div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -277,7 +284,9 @@
                             <th>Jumlah Kegiatan Berlangsung</th>
                         </tr>
                         <tr>
-                            <td><?= $kegiatan['current']; ?></td>
+                            <td>
+                                <div class="h3 mb-0 font-weight-bold text-gray-800"><?= $kegiatan['current']; ?></div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -289,7 +298,9 @@
                             <th>Jumlah Kegiatan Selesai</th>
                         </tr>
                         <tr>
-                            <td><?= $kegiatan['done']; ?></td>
+                            <td>
+                                <div class="h3 mb-0 font-weight-bold text-gray-800"><?= $kegiatan['done']; ?></div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -301,7 +312,9 @@
                             <th>Jumlah Kegiatan Akan Datang</th>
                         </tr>
                         <tr>
-                            <td><?= $kegiatan['next']; ?></td>
+                            <td>
+                                <div class="h3 mb-0 font-weight-bold text-gray-800"><?= $kegiatan['next']; ?></div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
