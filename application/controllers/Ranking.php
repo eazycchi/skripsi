@@ -453,8 +453,6 @@ class Ranking extends CI_Controller
         }
     }
 
-
-
     function nilai_akhir($kegiatan_id)
     {
         $data['title'] = 'Perhitungan';

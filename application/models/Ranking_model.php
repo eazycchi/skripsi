@@ -9,6 +9,7 @@ class Ranking_model extends CI_Model
         $this->db->where('id', $id);
         $this->db->delete('kriteria');
     }
+
     public function data_awal($kegiatan_id)
     {
 
