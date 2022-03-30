@@ -142,7 +142,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <table class="table">
+                    <table class="table" style="width: 80%;">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -186,7 +186,7 @@
         <!-- Footer Surat -->
         <div class="row">
             <div class="col">
-                <table style="width: 85%;" align="center">
+                <table style="width: 85%;" align="right">
                     <tbody align="center">
                         <tr>
                             <th>Ketua Pelaksana</th>
