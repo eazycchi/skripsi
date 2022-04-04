@@ -117,7 +117,7 @@
                         <?= strftime("%d %B %Y", $kegiatan['start']); ?> s/d <?= strftime("%d %B %Y", $kegiatan['finish']); ?>, BPS Kabupaten Jember
                         memberikan hasil penilaian kepada:
                     </p>
-                    <table class="mx-5" align="justify">
+                    <table class="mx-5 mb-3" align="justify">
                         <thead></thead>
                         <tbody>
                             <tr>
@@ -130,9 +130,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="my-2" style="width:40%; margin:auto;">
-                        <canvas id="myChart"></canvas>
-                    </div>
                     <table class="table" style="width: 70%;">
                         <thead>
                             <tr>
@@ -158,6 +155,34 @@
                                 <td><b>Rata-rata</b></td>
                                 <td><b><?= $rata2 ?></b></td>
                                 <td><b><?= $akreditasi['rata']; ?></b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="mb-3" align="justify" style="width: 70%; ">
+                        <thead>
+                            <tr">
+                                <td><span>Keterangan Akreditasi :</span></td>
+                                </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Kurang Baik</td>
+                                <td>: 50 sampai 70</td>
+                            </tr>
+                            <tr>
+                                <td>Cukup</td>
+                                <td>: 70 sampai 80</td>
+
+                            </tr>
+                            <tr>
+                                <td>Baik</td>
+                                <td>: 80 sampai 90</td>
+
+                            </tr>
+                            <tr>
+                                <td>Sangat Baik</td>
+                                <td>: 90 sampai 100</td>
+
                             </tr>
                         </tbody>
                     </table>

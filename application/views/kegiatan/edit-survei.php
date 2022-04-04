@@ -41,6 +41,13 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="target_responden" class="col-sm-3 col-form-label">Target Responden</label>
+                    <div class="col-sm-8">
+                        <input type="number" class="form-control" id="target_responden" name="target_responden" value="<?= $survei['target_responden']; ?>">
+                        <?= form_error('target_responden', '<small class="text-danger pl-3">', '</small>'); ?>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="ob" class="col-sm-3 col-form-label">Satuan Honor</label>
                     <div class="col-sm-8">
                         <select name="ob" id="ob" class="form-control">

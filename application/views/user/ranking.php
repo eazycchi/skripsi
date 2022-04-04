@@ -8,7 +8,7 @@
                     <a class="nav-link active font-weight-bold" aria-current="page" href="#" id="pencacah">Pencacah</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold" aria-current="page" href="#" id="pengawas">Pegawai</a>
+                    <a class="nav-link font-weight-bold" aria-current="page" href="#" id="pengawas">Pengawas</a>
                 </li>
             </ul>
 

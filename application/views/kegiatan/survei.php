@@ -96,6 +96,9 @@
                         <input type="number" class="form-control" id="k_pencacah" name="k_pencacah" placeholder="Jumlah Pencacah">
                     </div>
                     <div class="form-group">
+                        <input type="number" class="form-control" id="target_responden" name="target_responden" placeholder="Target Responden">
+                    </div>
+                    <div class="form-group">
                         <select name="ob" id="ob" class="form-control">
                             <option value="">Satuan Honor</option>
                             <option value="1">Orang Bulan (OB)</option>

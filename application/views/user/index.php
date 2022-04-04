@@ -330,6 +330,9 @@
                             <tr align=center>
                                 <th scope="col">No.</th>
                                 <th scope="col">Kegiatan</th>
+                                <th scope="col">Jumlah<br>Pengawas</th>
+                                <th scope="col">Jumlah<br>Mitra</th>
+                                <th scope="col">Target<br>Responden</th>
                                 <th scope="col">Mulai</th>
                                 <th scope="col">Selesai</th>
                                 <th scope="col">Status</th>
@@ -341,7 +344,15 @@
                             <?php foreach ($kegiatan['daftar'] as $k) : ?>
                                 <tr align=center>
                                     <td><?= $i ?></th>
-                                    <td><?= $k['nama'] ?></td>
+                                    <td><?php if ($now > $k['finish']) : ?>
+                                            <a href="<?= base_url('kegiatan/detailKegiatan/') . $k['id'] ?>"><?= $k['nama']; ?></a>
+                                        <?php else :  ?>
+                                            <?= $k['nama']; ?>
+                                        <?php endif;  ?>
+                                    </td>
+                                    <td><?= $k['k_pengawas'] ?></td>
+                                    <td><?= $k['k_pencacah'] ?></td>
+                                    <td><?= $k['target_responden'] ?></td>
                                     <td><?= date("d F Y", $k['start']) ?></td>
                                     <td><?= date("d F Y", $k['finish']) ?></td>
                                     <?php if ($now < $k['start']) : ?>

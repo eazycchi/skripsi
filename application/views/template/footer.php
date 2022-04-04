@@ -321,6 +321,10 @@
                      required: true,
                      min: 1,
                  },
+                 target_responden: {
+                     required: true,
+                     min: 1,
+                 },
                  ob: {
                      required: true,
                  },
@@ -346,6 +350,10 @@
                      min: "Nilai harus lebih dari 1"
                  },
                  k_pencacah: {
+                     required: "Kolom tidak boleh kosong",
+                     min: "Nilai harus lebih dari 1"
+                 },
+                 target_responden: {
                      required: "Kolom tidak boleh kosong",
                      min: "Nilai harus lebih dari 1"
                  },

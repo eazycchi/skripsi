@@ -17,13 +17,17 @@ class User extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $email])->row_array();
 
         if ($this->session->userdata('role_id') == 3) {
-            $data['jmlPegawai'] = $this->db->count_all_results('pegawai');
-            $data['jmlMitra'] = $this->db->count_all_results('mitra');
+            $datadiri = $this->db->get_where('pegawai', ['email' => $email])->row_array();
+            $nip = $datadiri['nip'];
+            $kueripeg = "SELECT DISTINCT a.id_pengawas FROM all_kegiatan_pengawas AS a JOIN kegiatan AS b ON a.kegiatan_id = b.id WHERE b.created_by = $nip";
+            $data['jmlPegawai'] = $this->db->query($kueripeg)->num_rows();
+            $kuerimit = "SELECT DISTINCT a.id_mitra FROM all_kegiatan_pencacah AS a JOIN kegiatan AS b ON a.kegiatan_id = b.id WHERE b.created_by = $nip";
+            $data['jmlMitra'] = $this->db->query($kuerimit)->num_rows();
             $queryKegiatan = "SELECT a.* FROM kegiatan AS a JOIN pegawai AS b ON a.created_by = b.nip WHERE b.email = '$email' ORDER BY a.start ASC";
             $data['kegiatan']['daftar'] = $this->db->query($queryKegiatan)->result_array();
-            $data['kegiatan']['current'] = $this->db->get_where('kegiatan', ['start <=' => time(), 'finish >' => time()])->num_rows();
-            $data['kegiatan']['next'] = $this->db->get_where('kegiatan', ['start >' => time()])->num_rows();
-            $data['kegiatan']['done'] = $this->db->get_where('kegiatan', ['finish <' => time()])->num_rows();
+            $data['kegiatan']['current'] = $this->db->get_where('kegiatan', ['start <=' => time(), 'finish >' => time(), 'created_by' => $nip])->num_rows();
+            $data['kegiatan']['next'] = $this->db->get_where('kegiatan', ['start >' => time(), 'created_by' => $nip])->num_rows();
+            $data['kegiatan']['done'] = $this->db->get_where('kegiatan', ['finish <' => time(), 'created_by' => $nip])->num_rows();
         }
         if ($this->session->userdata('role_id') == 4) {
             $datadiri = $this->db->get_where('pegawai', ['email' => $email])->row_array();
@@ -266,7 +270,7 @@ class User extends CI_Controller
         $maxsub =  (int) implode($this->db->query($querymaxsub)->row_array());
         $kueri = "SELECT COUNT(kegiatan_id) as jml FROM all_kegiatan_pencacah WHERE id_mitra = $id";
         $tampungjml = $this->db->query($kueri)->row_array();
-        if ($tampungjml['jml'] > 0) {
+        if ($tampungjml['jml'] != 0) {
             $jmlkegiatan = $tampungjml['jml'];
             $jumlah_kriteria = $this->db->get_where('kriteria', ['target' => 'pencacah'])->num_rows();
             $sqlrow = "SELECT count(*) as r FROM all_penilaian JOIN all_kegiatan_pencacah ON all_penilaian.all_kegiatan_pencacah_id = all_kegiatan_pencacah.id WHERE all_kegiatan_pencacah.id_mitra = $id";
@@ -290,6 +294,10 @@ class User extends CI_Controller
                 $this->db->where('id_mitra', $id);
                 $this->db->update('mitra');
             }
+        } else {
+            $this->db->set('nilai', round($nilai, 2));
+            $this->db->where('id_mitra', $id);
+            $this->db->update('mitra');
         }
     }
 
@@ -303,7 +311,7 @@ class User extends CI_Controller
         $maxsub =  (int) implode($this->db->query($querymaxsub)->row_array());
         $kueri = "SELECT COUNT(kegiatan_id) as jml FROM all_kegiatan_pengawas WHERE id_pengawas = $nip";
         $tampungjml = $this->db->query($kueri)->row_array();
-        if ($tampungjml['jml'] > 0) {
+        if ($tampungjml['jml'] != 0) {
             $jmlkegiatan = $tampungjml['jml'];
             $jumlah_kriteria = $this->db->get_where('kriteria', ['target' => 'pengawas'])->num_rows();
             $sqlrow = "SELECT count(*) FROM penilaian_pengawas AS A JOIN all_kegiatan_pengawas AS B ON A.all_kegiatan_pengawas_id = B.id WHERE B.id_pengawas = $nip";
@@ -344,6 +352,10 @@ class User extends CI_Controller
                 $this->db->where('nip', $nip);
                 $this->db->update('pegawai');
             }
+        } else {
+            $this->db->set('nilai', round($nilai, 2));
+            $this->db->where('nip', $nip);
+            $this->db->update('pegawai');
         }
     }
 }

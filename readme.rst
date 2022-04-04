@@ -12,7 +12,7 @@ jika menambahkan user tanpa password, maka password defaultnya adalah 'default'
 
 ***!! JANGAN MENGUBAH ID ROLE KARENA AKAN BERDAMPAK PADA SISTEM !!***
 1 : Super Admin
-3 : Operator Seksi
+3 : Ketua Bidang
 4 : Pengawas
 5 : Mitra
 

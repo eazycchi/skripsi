@@ -20,7 +20,7 @@ class Admin extends CI_Controller
         $data['mitra'] = $this->db->get('mitra')->num_rows();
         $data['pegawai'] = $this->db->get('pegawai')->num_rows();
 
-        $now = date("Y-m-d", time());
+        $now = time();
 
         $sql_k_berjalan = "SELECT * FROM kegiatan WHERE start <= $now AND finish >= $now";
         $data['k_berjalan'] = $this->db->query($sql_k_berjalan)->num_rows();

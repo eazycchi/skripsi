@@ -46,6 +46,7 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('finish', 'Finish', 'required|trim');
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
+        $this->form_validation->set_rules('target_responden', 'Target Responden', 'required|trim');
         $this->form_validation->set_rules('ob', 'OB', 'required|trim');
         $this->form_validation->set_rules('honor', 'Honor', 'required|trim');
 
@@ -62,6 +63,7 @@ class Kegiatan extends CI_Controller
                 'finish' => strtotime($this->input->post('finish')),
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
+                'target_responden' => $this->input->post('target_responden'),
                 'jenis_kegiatan' => '1',
                 'seksi_id' => $seksi_id,
                 'ob' => $this->input->post('ob'),
@@ -94,6 +96,7 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('finish', 'Finish', 'required|trim');
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
+        $this->form_validation->set_rules('target_responden', 'Target Responden', 'required|trim');
         $this->form_validation->set_rules('ob', 'OB', 'required|trim');
         $this->form_validation->set_rules('honor', 'Honor', 'required|trim');
 
@@ -111,6 +114,7 @@ class Kegiatan extends CI_Controller
                 'finish' => strtotime($this->input->post('finish')),
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
+                'target_responden' => $this->input->post('target_responden'),
                 'jenis_kegiatan' => '2',
                 'ob' => $this->input->post('ob'),
                 'honor' => $this->input->post('honor'),
@@ -140,6 +144,7 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('finish', 'Finish', 'required|trim');
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
+        $this->form_validation->set_rules('target_responden', 'Target Responden', 'required|trim');
         $this->form_validation->set_rules('ob', 'OB', 'required|trim');
         $this->form_validation->set_rules('honor', 'Honor', 'required|trim');
 
@@ -164,6 +169,7 @@ class Kegiatan extends CI_Controller
                 'finish' => strtotime($this->input->post('finish')),
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
+                'target_responden' => $this->input->post('target_responden'),
                 'ob' => $this->input->post('ob'),
                 'honor' => $this->input->post('honor'),
 
@@ -194,6 +200,7 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('finish', 'Finish', 'required|trim');
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
+        $this->form_validation->set_rules('target_responden', 'Target Responden', 'required|trim');
         $this->form_validation->set_rules('ob', 'OB', 'required|trim');
         $this->form_validation->set_rules('honor', 'Honor', 'required|trim');
 
@@ -217,6 +224,7 @@ class Kegiatan extends CI_Controller
                 'finish' => strtotime($this->input->post('finish')),
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
+                'target_responden' => $this->input->post('target_responden'),
                 'ob' => $this->input->post('ob'),
                 'honor' => $this->input->post('honor'),
 
