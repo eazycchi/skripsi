@@ -167,21 +167,21 @@
                         <tbody>
                             <tr>
                                 <td>Kurang Baik</td>
-                                <td>: 50 sampai 70</td>
+                                <td>: 50 - &lt;70</td>
                             </tr>
                             <tr>
                                 <td>Cukup</td>
-                                <td>: 70 sampai 80</td>
+                                <td>: 70 - &lt;80</td>
 
                             </tr>
                             <tr>
                                 <td>Baik</td>
-                                <td>: 80 sampai 90</td>
+                                <td>: 80 - &lt;90</td>
 
                             </tr>
                             <tr>
                                 <td>Sangat Baik</td>
-                                <td>: 90 sampai 100</td>
+                                <td>: &gt;90</td>
 
                             </tr>
                         </tbody>
@@ -236,60 +236,5 @@
 </html>
 
 <script>
-    var ctx = document.getElementById("myChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: [
-                <?php
-                if (count($krit) > 0) {
-                    foreach ($krit as $data) {
-                        echo "'" . $kriteria[$data['nama']] . "',";
-                    }
-                }
-                ?>
-            ],
-            datasets: [{
-                label: 'Kinerja Mitra',
-                data: [<?php
-                        if (count($krit) > 0) {
-                            foreach ($krit as $data) {
-                                echo round($nilai[$data['id']]) . ", ";
-                            }
-                        }
-                        ?>],
-                fill: true,
-                backgroundColor: 'rgba(179, 209, 255, 0.4)',
-                borderColor: 'rgb(0, 102, 255)',
-                pointBackgroundColor: 'rgb(0, 102, 255)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgb(255, 99, 132)'
-            }]
-        },
-        options: {
-            elements: {
-                line: {
-                    borderWidth: 3
-                }
-            },
-            scales: {
-                r: {
-                    ticks: {
-                        display: true,
-                        maxTicksLimit: 6,
-                        minTicksLimit: 5
-                    },
-                    angleLines: {
-                        display: true
-                    },
-                    min: 50,
-                    max: 100
-                }
-            },
-            bezierCurve: false,
-            animation: false
-        },
-    });
     window.print();
 </script>

@@ -630,15 +630,17 @@ class Penilaian extends CI_Controller
     //tambahan mochi
     public function akreditasi($nilai)
     {
-        if ($nilai > 90) {
-            return "Sangat Baik";
-        } elseif ($nilai > 80) {
-            return "Baik";
-        } elseif ($nilai > 70) {
-            return "Cukup";
+        $akreditasi = "";
+        if ($nilai < 70) {
+            $akreditasi = "Kurang baik";
+        } elseif ($nilai < 80) {
+            $akreditasi = "Cukup";
+        } elseif ($nilai < 90) {
+            $akreditasi = "Baik";
         } else {
-            return "Kurang Baik";
+            $akreditasi = "Sangat Baik";
         }
+        return $akreditasi;
     }
 
     public function arsip()
