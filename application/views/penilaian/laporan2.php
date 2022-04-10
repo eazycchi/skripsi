@@ -113,7 +113,7 @@
             <div class="row">
                 <div class="col mx-5 mt-3">
                     <p align="justify">
-                        <span class="tab"></span>Berhubungan dengan kegiatan <?= $kegiatan['nama']; ?> yang dilaksanakan pada
+                        <span class="tab"></span>Sehubungan dengan kegiatan <?= $kegiatan['nama']; ?> yang dilaksanakan pada
                         <?= strftime("%d %B %Y", $kegiatan['start']); ?> s/d <?= strftime("%d %B %Y", $kegiatan['finish']); ?>, BPS Kabupaten Jember
                         memberikan hasil penilaian kepada:
                     </p>
