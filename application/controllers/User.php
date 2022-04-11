@@ -264,16 +264,17 @@ class User extends CI_Controller
     public function nilaiPencacah($id)
     {
         $nilai = (float) 0;
+        $now = (time());
         $queryminsub = "SELECT min(nilai) FROM subkriteria";
         $minsub =  (int) implode($this->db->query($queryminsub)->row_array());
         $querymaxsub = "SELECT max(nilai) FROM subkriteria";
         $maxsub =  (int) implode($this->db->query($querymaxsub)->row_array());
-        $kueri = "SELECT COUNT(kegiatan_id) as jml FROM all_kegiatan_pencacah WHERE id_mitra = $id";
+        $kueri = "SELECT COUNT(a.kegiatan_id) as jml FROM all_kegiatan_pencacah AS a JOIN kegiatan AS b ON a.kegiatan_id = b.id WHERE a.id_mitra = $id AND b.finish<$now";
         $tampungjml = $this->db->query($kueri)->row_array();
         if ($tampungjml['jml'] != 0) {
             $jmlkegiatan = $tampungjml['jml'];
             $jumlah_kriteria = $this->db->get_where('kriteria', ['target' => 'pencacah'])->num_rows();
-            $sqlrow = "SELECT count(*) as r FROM all_penilaian JOIN all_kegiatan_pencacah ON all_penilaian.all_kegiatan_pencacah_id = all_kegiatan_pencacah.id WHERE all_kegiatan_pencacah.id_mitra = $id";
+            $sqlrow = "SELECT count(*) as r FROM all_penilaian AS a JOIN all_kegiatan_pencacah AS b ON a.all_kegiatan_pencacah_id = b.id WHERE b.id_mitra = $id";
             $row = (int) implode($this->db->query($sqlrow)->row_array());
             if ($row == ($jumlah_kriteria * $jmlkegiatan)) {
                 $kriteria = $this->db->get_where('kriteria', ['target' => 'pencacah'])->result_array();
@@ -305,11 +306,12 @@ class User extends CI_Controller
     public function nilaiPengawas($nip)
     {
         $nilai = 0;
+        $now = (time());
         $queryminsub = "SELECT min(nilai) FROM subkriteria";
         $minsub =  (int) implode($this->db->query($queryminsub)->row_array());
         $querymaxsub = "SELECT max(nilai) FROM subkriteria";
         $maxsub =  (int) implode($this->db->query($querymaxsub)->row_array());
-        $kueri = "SELECT COUNT(kegiatan_id) as jml FROM all_kegiatan_pengawas WHERE id_pengawas = $nip";
+        $kueri = "SELECT COUNT(a.kegiatan_id) as jml FROM all_kegiatan_pengawas AS a JOIN kegiatan AS b ON a.kegiatan_id = b.id WHERE a.id_pengawas = $nip AND b.finish<$now";
         $tampungjml = $this->db->query($kueri)->row_array();
         if ($tampungjml['jml'] != 0) {
             $jmlkegiatan = $tampungjml['jml'];
@@ -318,14 +320,15 @@ class User extends CI_Controller
             $row = (int) implode($this->db->query($sqlrow)->row_array());
 
             // jumlah seharusnya
-            $jml_mitra = $this->db->get_where('all_kegiatan_pencacah', ['id_pengawas' => $nip])->num_rows();
-            $sqlpgws = "SELECT COUNT(*) FROM all_kegiatan_pengawas WHERE kegiatan_id IN (SELECT kegiatan_id FROM all_kegiatan_pengawas WHERE id_pengawas = $nip) AND  NOT id_pengawas = $nip";
+            $sqlmitra = "SELECT count(*) FROM all_kegiatan_pencacah AS A JOIN kegiatan AS B ON A.kegiatan_id = B.id WHERE A.id_pengawas = $nip AND B.finish<$now";
+            $jml_mitra = (int) implode($this->db->query($sqlmitra)->row_array());
+            $sqlpgws = "SELECT COUNT(*) FROM all_kegiatan_pengawas WHERE kegiatan_id IN (SELECT a.kegiatan_id FROM all_kegiatan_pengawas AS a JOIN kegiatan AS b ON a.kegiatan_id = b.id WHERE a.id_pengawas = $nip AND b.finish<$now) AND  NOT id_pengawas = $nip";
             $jml_pengawas = (int) implode($this->db->query($sqlpgws)->row_array());
 
             $sqlos = "SELECT COUNT(*) FROM pegawai AS p JOIN user AS u ON p.email=u.email WHERE p.nip = $nip AND u.role_id = 3";
             $os_email = (int) implode($this->db->query($sqlos)->row_array());
             if ($os_email > 0) {
-                $os = "SELECT COUNT(*) FROM `all_kegiatan_pengawas` AS A JOIN kegiatan AS B ON A.kegiatan_id=B.id WHERE B.created_by = $nip AND A.id_pengawas= $nip";
+                $os = "SELECT COUNT(*) FROM `all_kegiatan_pengawas` AS A JOIN kegiatan AS B ON A.kegiatan_id=B.id WHERE B.created_by = $nip AND A.id_pengawas= $nip AND B.finish<$now";
                 $banyak_os = (int) implode($this->db->query($os)->row_array());
                 $jml_os = $jmlkegiatan - $banyak_os;
             } else {
