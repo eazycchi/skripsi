@@ -12,8 +12,11 @@
                 </div>
                 <div class="col-lg-6" align=right>
                     <h4>Keterangan
-                        <h6>1 : Kurang baik</h6>
-                        <h6>5 : Sangat baik sekali</h6>
+                        <?php foreach ($subkriteria as $sk) : ?>
+                            <?php if ($sk['nilai'] == 1 || $sk['nilai'] == 5) : ?>
+                                <h6><?= $sk['nilai'] ?> : <?= $sk['deskripsi'] ?></h6>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     </h4>
 
                 </div>

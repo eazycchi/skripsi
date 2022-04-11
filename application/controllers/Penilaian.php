@@ -202,6 +202,8 @@ class Penilaian extends CI_Controller
 
         $sql_kriteria = "SELECT * FROM kriteria WHERE target='pencacah' ORDER BY id ASC";
         $data['kriteria'] = $this->db->query($sql_kriteria)->result_array();
+        $data['subkriteria'] = $this->db->get_where('subkriteria')->result_array();
+
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -227,6 +229,7 @@ class Penilaian extends CI_Controller
 
         $sql_kriteria = "SELECT * FROM kriteria WHERE target='pengawas' ORDER BY id ASC";
         $data['kriteria'] = $this->db->query($sql_kriteria)->result_array();
+        $data['subkriteria'] = $this->db->get_where('subkriteria')->result_array();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
