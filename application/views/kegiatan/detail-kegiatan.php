@@ -114,7 +114,7 @@
             <div class="row">
                 <div class="col mx-5 mt-3">
                     <p align="justify">
-                        <span class="tab"></span>Berhubungan dengan berakhirnya kegiatan <?= $kegiatan['nama']; ?>, BPS Kabupaten Jember
+                        <span class="tab"></span>Sehubungan dengan berakhirnya kegiatan <?= $kegiatan['nama']; ?>, BPS Kabupaten Jember
                         melampirkan pihak-pihak yang terlibat dalam kegiatan yang dilaksanakan pada :
                     </p>
                     <table class="mx-5" align="justify">
