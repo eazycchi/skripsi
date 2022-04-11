@@ -746,7 +746,7 @@ class Kegiatan extends CI_Controller
         if (fmod($kuota['k_pencacah'], $kuota['k_pengawas']) == 0) {
             $maxkuota = $kuota['k_pencacah'] / $kuota['k_pengawas'];
         } else {
-            $maxkuota = ($kuota['k_pencacah'] / $kuota['k_pengawas']) + 1;
+            $maxkuota = floor($kuota['k_pencacah'] / $kuota['k_pengawas']) + 1;
         }
         $terisi = $this->db->get_where('all_kegiatan_pencacah', ['kegiatan_id' => $kegiatan_id, 'id_pengawas' => $nip])->num_rows();
 
